@@ -3,20 +3,20 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 function Video_foryou() {
-  const [isClient, setIsClient] = useState(false);  // สร้าง state เพื่อบอกว่าโค้ดทำงานใน client-side
+  const [isClient, setIsClient] = useState(false); // เพิ่มสถานะเพื่อเช็คว่าอยู่ใน client-side
   const router = useRouter();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setIsClient(true);  // อัปเดต state เมื่ออยู่ใน client-side
+      setIsClient(true); // ตั้งค่า state ว่าอยู่ใน client-side
       const isAuthenticated = localStorage.getItem('authenticated');
       if (!isAuthenticated) {
-        router.push('/');  // ถ้าไม่ได้ยืนยันตัวตน, พาผู้ใช้กลับไปหน้า login
+        router.push('/'); // ถ้าไม่ได้ยืนยันตัวตน, พาผู้ใช้กลับไปหน้า login
       }
     }
   }, [router]);
 
-  if (!isClient) return null; // ไม่ให้ render อะไรในฝั่ง server
+  if (!isClient) return null; // ไม่ให้ render ใน server-side
 
   return (
     <main className="flex min-h-screen flex-col container mx-auto bg-black">
