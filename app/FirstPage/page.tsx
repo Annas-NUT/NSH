@@ -1,21 +1,38 @@
-"use client";
+"use client"; // บอก Next.js ว่านี่คือลำดับที่ทำงานบน client side
+
 import { TypeAnimation } from 'react-type-animation';
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image'; // ใช้ Image จาก next/image
 
-export default function Home() {
+export default function Page() {
     const [image, setImage] = useState('/image/image6.jpg'); // เริ่มต้นด้วยรูปภาพแรก
-    const images = ['/image/image7.jpg', '/image/image6.jpg', '/image/image1.jpg', '/image/image4.jpg', '/image/image5.jpg', '/image/image8.jpg', '/image/image9.jpg', '/image/image10.jpg', '/image/image11.jpg', '/image/image12.jpg', '/image/image13.jpg'];
-  
+    const images = [
+        '/image/image7.jpg',
+        '/image/image6.jpg',
+        '/image/image1.jpg',
+        '/image/image4.jpg',
+        '/image/image5.jpg',
+        '/image/image8.jpg',
+        '/image/image9.jpg',
+        '/image/image10.jpg',
+        '/image/image11.jpg',
+        '/image/image12.jpg',
+        '/image/image13.jpg'
+    ];
+
+    // ใช้ useEffect สำหรับการทำงานกับ DOM หลังจากที่ component ถูก render
     useEffect(() => {
-      let index = 0;
-      const intervalId = setInterval(() => {
-        setImage(images[index]);
-        index = (index + 1) % images.length; // เปลี่ยน index และวนกลับที่ 0 เมื่อครบ
-      }, 2000); // ทุกๆ 2000 มิลลิวินาที (2 วินาที)
+      // ตรวจสอบว่าผู้ใช้ใช้งานใน client side หรือไม่
+      if (typeof window !== 'undefined') {
+        let index = 0;
+        const intervalId = setInterval(() => {
+          setImage(images[index]);
+          index = (index + 1) % images.length; // เปลี่ยน index และวนกลับที่ 0 เมื่อครบ
+        }, 2000); // ทุกๆ 2000 มิลลิวินาที (2 วินาที)
   
-      // การล้าง interval เมื่อ component ถูก unmount
-      return () => clearInterval(intervalId);
+        // การล้าง interval เมื่อ component ถูก unmount
+        return () => clearInterval(intervalId);
+      }
     }, [images]); // เพิ่ม images ใน dependency array
     
     return (
@@ -60,3 +77,4 @@ export default function Home() {
       </main>
     );
 }
+
