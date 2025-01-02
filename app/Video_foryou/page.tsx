@@ -1,18 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation"; // ใช้ useRouter จาก next/navigation ใน Next.js 13
+import { useRouter } from "next/navigation";
 
 function Video_foryou() {
-  const [isClient, setIsClient] = useState(false); // สถานะเพื่อให้แน่ใจว่าใช้ใน client
-  const router = useRouter(); // ใช้ useRouter จาก next/navigation
+  const [isClient, setIsClient] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    // ตรวจสอบสถานะการยืนยันตัวตนจาก localStorage
     if (typeof window !== "undefined") {
-      setIsClient(true); // เมื่อเป็น client แล้ว ให้ set เป็น true
-      const authStatus = localStorage.getItem('authenticated');
-      if (!authStatus) {
-        router.push('/'); // หากไม่ได้ login พาผู้ใช้ไปหน้า login
+      // เริ่มต้นการใช้งาน localStorage หรือ window ที่ทำงานบน client-side
+      setIsClient(true);
+      const isAuthenticated = localStorage.getItem('authenticated');
+      if (!isAuthenticated) {
+        router.push('/'); // พาผู้ใช้ไปหน้า login
       }
     }
   }, [router]);
@@ -37,7 +37,7 @@ function Video_foryou() {
         <div className="px-12 mt-6 w-full sm:w-auto">
           <button
             aria-label="Go back to home"
-            onClick={() => router.push('/')} // ใช้ router.push สำหรับการนำทาง
+            onClick={() => router.push('/')}
             className="px-8 py-4 w-full sm:w-fit rounded-full bg-gradient-to-br from-pink-600 to-pink-400 hover:bg-gradient-to-br hover:from-pink-500 hover:to-pink-700 text-white font-bold border-2 border-pink-500 mt-4 lg:mt-0 transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl"
           >
             Comeback
@@ -49,3 +49,4 @@ function Video_foryou() {
 }
 
 export default Video_foryou;
+
