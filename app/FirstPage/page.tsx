@@ -1,12 +1,10 @@
 "use client";
 import { TypeAnimation } from 'react-type-animation';
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link'; // ใช้ Link จาก next/link แทน react-router-dom
 import Image from 'next/image'; // ใช้ Image จาก next/image
 
 export default function Home() {
     const [image, setImage] = useState('/image/image6.jpg'); // เริ่มต้นด้วยรูปภาพแรก
-  
     const images = ['/image/image7.jpg', '/image/image6.jpg', '/image/image1.jpg', '/image/image4.jpg', '/image/image5.jpg', '/image/image8.jpg', '/image/image9.jpg', '/image/image10.jpg', '/image/image11.jpg', '/image/image12.jpg', '/image/image13.jpg'];
   
     useEffect(() => {
@@ -47,13 +45,6 @@ export default function Home() {
                 Congratulations on receiving your gown coat today, it is another big step in your journey, and I know you will do well as always, because I have seen how hard you work and how strong you are. I am very proud of you and I will be with you every step of your success after this and be yourself, do not pay too much attention to your friends and do not cry too much. You have shown that you can get through it all. You are amazing, and if you want to consult anything.  Just talk to me. <br /><br />
                 <span className='font-extrabold text-xl md:text-3xl text-pink-600'>love you</span>
               </p>
-              <div className='px-12'>
-                <Link href="/Password"> {/* ใช้ Link จาก next/link */}
-                  <button className="px-8 py-4 w-full sm:w-fit rounded-full mr-4 bg-white bg-gradient-to-br from-pink-500 to-violet-800 hover:bg-slate-800 text-black border-2 font-bold border-white mt-3 lg:mt-0 transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg">
-                    อยากเสือก ก็กดมา 5555
-                  </button>
-                </Link>
-              </div>
             </div>
             <div className="col-span-4 place-self-center mt-4 mb-6">
               <Image
