@@ -1,7 +1,6 @@
 "use client";
 // ใช้ next/link แทนการใช้ useRouter
 import { useState } from 'react';
-import Link from 'next/link';  // ใช้ Link จาก next/link แทนการใช้ useRouter
 
 function PasswordPage() {
   const [password, setPassword] = useState('');
