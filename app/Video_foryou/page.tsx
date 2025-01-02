@@ -1,32 +1,18 @@
 "use client";
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router'; // ใช้ useRouter จาก Next.js
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation"; // ใช้ useRouter จาก next/navigation ใน Next.js 13
 
 function Video_foryou() {
-  const [isClient, setIsClient] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const router = useRouter();
+  const router = useRouter(); // ใช้ useRouter จาก next/navigation
 
-  // ตรวจสอบว่าเป็นฝั่ง client และใช้ useRouter
   useEffect(() => {
-    setIsClient(true);
-
     // ตรวจสอบสถานะการยืนยันตัวตนจาก localStorage
-    const authenticated = localStorage.getItem('authenticated');
-    if (authenticated) {
-      setIsAuthenticated(true);
-    } else {
-      router.push('/'); // หากไม่มีการยืนยันตัวตน, พาผู้ใช้กลับไปหน้า PasswordPage
+    const isAuthenticated = localStorage.getItem('authenticated');
+    if (!isAuthenticated) {
+      // หากไม่มีการยืนยันตัวตน, พาผู้ใช้กลับไปหน้า PasswordPage
+      router.push('/'); // ใช้ router.push ในการนำทาง
     }
   }, [router]);
-
-  if (!isClient) {
-    return null; // หากยังไม่ได้ mount ในฝั่ง client, ไม่ให้ render อะไร
-  }
-
-  if (!isAuthenticated) {
-    return <div>Loading...</div>; // แสดงข้อความขณะรอการตรวจสอบการยืนยันตัวตน
-  }
 
   return (
     <main className="flex min-h-screen flex-col container mx-auto bg-black">
@@ -46,8 +32,8 @@ function Video_foryou() {
         <div className="px-12 mt-6 w-full sm:w-auto">
           <button
             aria-label="Go back to home"
+            onClick={() => router.push('/')} // ใช้ router.push สำหรับการนำทาง
             className="px-8 py-4 w-full sm:w-fit rounded-full bg-gradient-to-br from-pink-600 to-pink-400 hover:bg-gradient-to-br hover:from-pink-500 hover:to-pink-700 text-white font-bold border-2 border-pink-500 mt-4 lg:mt-0 transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl"
-            onClick={() => router.push('/')} // ใช้ router.push ใน Next.js
           >
             Comeback
           </button>
