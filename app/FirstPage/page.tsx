@@ -18,7 +18,7 @@ export default function Home() {
   
       // การล้าง interval เมื่อ component ถูก unmount
       return () => clearInterval(intervalId);
-    }, []); // [] ทำให้ useEffect ทำงานครั้งเดียวเมื่อ component mount
+    }, [images]); // เพิ่ม images ใน dependency array
     
     return (
       <main className="flex min-h-screen flex-col container mx-auto">
