@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation"; // ใช้ useRouter จาก ne
 
 function Video_foryou() {
   const [isClient, setIsClient] = useState(false); // สถานะเพื่อให้แน่ใจว่าใช้ใน client
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter(); // ใช้ useRouter จาก next/navigation
 
   useEffect(() => {
@@ -12,7 +11,6 @@ function Video_foryou() {
     if (typeof window !== "undefined") {
       setIsClient(true); // เมื่อเป็น client แล้ว ให้ set เป็น true
       const authStatus = localStorage.getItem('authenticated');
-      setIsAuthenticated(!!authStatus);
       if (!authStatus) {
         router.push('/'); // หากไม่ได้ login พาผู้ใช้ไปหน้า login
       }
