@@ -1,32 +1,21 @@
 "use client";
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// ใช้ next/link แทนการใช้ useRouter
+import { useState } from 'react';
+import Link from 'next/link';  // ใช้ Link จาก next/link แทนการใช้ useRouter
 
 function PasswordPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [authenticated, setAuthenticated] = useState(false);  // ใช้สถานะในการเก็บการยืนยัน
-  const navigate = useNavigate();
-
+  
   const correctPassword = "15-09-2024";
-
-  useEffect(() => {
-    // ตรวจสอบสถานะการยืนยันเมื่อเริ่มต้นหน้า
-    const authStatus = localStorage.getItem('authenticated');
-    if (authStatus === 'true') {
-      setAuthenticated(true);
-      navigate('/Video_foryou');
-    }
-  }, [navigate]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log(password); 
 
     if (password === correctPassword) {
       localStorage.setItem('authenticated', 'true');
-      setAuthenticated(true);  // ตั้งค่าสถานะเป็น true
-      navigate('/Video_foryou'); 
+      // เปลี่ยนจาก useRouter ไปใช้ Link
+      window.location.href = '/Video_foryou';  // ใช้ window.location.href เพื่อเปลี่ยนเส้นทาง
     } else {
       setError('รหัสผ่านไม่ถูกต้อง');
     }
