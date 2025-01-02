@@ -1,18 +1,25 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation"; // ใช้ useRouter จาก next/navigation ใน Next.js 13
 
 function Video_foryou() {
+  const [isClient, setIsClient] = useState(false); // สถานะเพื่อให้แน่ใจว่าใช้ใน client
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter(); // ใช้ useRouter จาก next/navigation
 
   useEffect(() => {
     // ตรวจสอบสถานะการยืนยันตัวตนจาก localStorage
-    const isAuthenticated = localStorage.getItem('authenticated');
-    if (!isAuthenticated) {
-      // หากไม่มีการยืนยันตัวตน, พาผู้ใช้กลับไปหน้า PasswordPage
-      router.push('/'); // ใช้ router.push ในการนำทาง
+    if (typeof window !== "undefined") {
+      setIsClient(true); // เมื่อเป็น client แล้ว ให้ set เป็น true
+      const authStatus = localStorage.getItem('authenticated');
+      setIsAuthenticated(!!authStatus);
+      if (!authStatus) {
+        router.push('/'); // หากไม่ได้ login พาผู้ใช้ไปหน้า login
+      }
     }
   }, [router]);
+
+  if (!isClient) return null; // ถ้ายังไม่ได้เป็น client ให้ไม่ render อะไร
 
   return (
     <main className="flex min-h-screen flex-col container mx-auto bg-black">

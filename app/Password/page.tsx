@@ -1,10 +1,11 @@
 "use client";
-// ใช้ next/link แทนการใช้ useRouter
 import { useState } from 'react';
+import { useRouter } from 'next/navigation'; // ใช้ useRouter สำหรับการนำทาง
 
 function PasswordPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const router = useRouter();
   
   const correctPassword = "15-09-2024";
 
@@ -13,8 +14,7 @@ function PasswordPage() {
 
     if (password === correctPassword) {
       localStorage.setItem('authenticated', 'true');
-      // เปลี่ยนจาก useRouter ไปใช้ Link
-      window.location.href = '/Video_foryou';  // ใช้ window.location.href เพื่อเปลี่ยนเส้นทาง
+      router.push('/Video_foryou');  // ใช้ router.push แทนการใช้ window.location.href
     } else {
       setError('รหัสผ่านไม่ถูกต้อง');
     }
