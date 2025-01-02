@@ -4,21 +4,28 @@ import { useRouter } from 'next/router'; // ใช้ useRouter จาก Next.j
 
 function Video_foryou() {
   const [isClient, setIsClient] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter();
 
+  // ตรวจสอบว่าเป็นฝั่ง client และใช้ useRouter
   useEffect(() => {
-    // ตรวจสอบว่าเป็นฝั่ง client
     setIsClient(true);
 
     // ตรวจสอบสถานะการยืนยันตัวตนจาก localStorage
-    const isAuthenticated = localStorage.getItem('authenticated');
-    if (!isAuthenticated) {
+    const authenticated = localStorage.getItem('authenticated');
+    if (authenticated) {
+      setIsAuthenticated(true);
+    } else {
       router.push('/'); // หากไม่มีการยืนยันตัวตน, พาผู้ใช้กลับไปหน้า PasswordPage
     }
   }, [router]);
 
   if (!isClient) {
     return null; // หากยังไม่ได้ mount ในฝั่ง client, ไม่ให้ render อะไร
+  }
+
+  if (!isAuthenticated) {
+    return <div>Loading...</div>; // แสดงข้อความขณะรอการตรวจสอบการยืนยันตัวตน
   }
 
   return (
